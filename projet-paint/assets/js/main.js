@@ -18,8 +18,8 @@ function getSelectedColor()
     return null;
 }
 function create_color() {
-  let randomColor = (Math.floor(Math.random()*0xFFFFFF)).toString(16);
-  return "#"+randomColor;
+    let randomColor = (Math.floor(Math.random()*0xFFFFFF)).toString(16);
+    return "#"+randomColor;
 }
 function loadPalette(palette)
 {
@@ -37,9 +37,8 @@ function loadPalette(palette)
         let newDiv = document.createElement("div");
         head.appendChild(newDiv);
         let new_color = colors.push(create_color());
-        console.log(new_color);
     }
-    //affichage des couleurs dans les div
+    //affichage des couleurs dans les div + ajout des inputs
     let div = document.querySelectorAll("header > div");
     let nb_colors_bis = colors.length;
     for(let j=0;j < nb_colors_bis;j++ ) {
@@ -52,9 +51,14 @@ function loadPalette(palette)
     //on modifie le div en fonction de la couleur mise dans le input
     let input = document.querySelectorAll("header > div > input");
     console.log(input);
+    let nb_input = input.length;
+    for(let i=0;i<nb_input;i++) {
+        input[i].addEventListener("change", function(){
+            div[i].setAttribute("style", " background:"+input[i].value+";");
+            sessionStorage.setItem("selectedColor", input[i].value);
+        });
+    }
 }
-
-
 window.addEventListener("DOMContentLoaded", function(){
     loadPalette(["#22f6f3", "#3daf7e", "#ffffff", "#ec8236", "#a9a7ee", "#ecc606", "#f783f2", "#e89e80"]);
     //exo2
